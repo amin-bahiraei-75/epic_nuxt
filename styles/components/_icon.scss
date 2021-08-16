@@ -1,0 +1,40 @@
+.icon-components {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 17px;
+  height: 17px;
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: $primary;
+  }
+}
+.icon-lg{
+  width: 25px;
+  height: 25px;
+}
+.icon-sm{
+  width: 10px;
+  height: 10px;
+}
+.icon-secondary {
+  svg {
+    fill: $white;
+  }
+}
+.icon-warning {
+  svg {
+    fill: $warning;
+  }
+}
+.icon-danger {
+  svg {
+    fill: $danger;
+  }
+}
+.icon-black {
+  svg {
+    fill: $black;
+  }
+}
