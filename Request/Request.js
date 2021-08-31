@@ -1,6 +1,4 @@
 import axios from "axios";
-let FormData = require('form-data');
-
 class Request {
   constructor(baseURL) {
     this.axios_instance = axios.create({
@@ -40,6 +38,7 @@ class Request {
     this.endpoint = endpoint;
     return this;
   }
+
   delete(endpoint) {
     this.reset();
     this.method = "DELETE";
@@ -68,7 +67,7 @@ class Request {
   }
 
   addFile(key, file) {
-    if (this.method === "POST") {
+    if (this.method === "POST" || this.method === "PUT") {
       this.data.append(key, file, file.name);
       this.setHeader("Content-Type", "multipart/form-data");
     }
@@ -90,11 +89,6 @@ class Request {
       }
     });
     return query_string;
-  }
-
-  addJson(data) {
-    this.data = data;
-    return this;
   }
 
   noCache() {
@@ -135,7 +129,7 @@ class Request {
       });
     } else if (this.method === "DELETE") {
       return new Promise((resolve, reject) => {
-        this._delete(this.endpoint, this.params, this.data)
+        this._delete(this.endpoint, this.params)
           .then(function(response) {
             resolve(response.data);
           })
@@ -145,6 +139,7 @@ class Request {
       });
     }
   }
+
   _get(endpoint, params) {
     return this.axios_instance.get(endpoint, {
       headers: this.headers,
@@ -164,9 +159,9 @@ class Request {
       headers: this.headers
     });
   }
-  _delete(endpoint, params, data) {
+  _delete(endpoint, params) {
     let query_string = this.parseQueryString(params);
-    return this.axios_instance.delete(endpoint + query_string, data, {
+    return this.axios_instance.delete(endpoint + query_string,  {
       headers: this.headers
     });
   }
